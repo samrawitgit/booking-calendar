@@ -1,0 +1,47 @@
+{
+  "name": "react-typescript",
+  "version": "1.0.0",
+  "description": "React and TypeScript example starter project",
+  "keywords": [
+    "typescript",
+    "react",
+    "starter"
+  ],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@daily-co/daily-js": "0.34.1",
+    "@daily-co/daily-react": "0.6.1",
+    "@daily-co/daily-react-hooks": "0.5.0",
+    "axios": "1.2.0",
+    "daisyui": "2.42.1",
+    "dayjs": "1.11.6",
+    "formik": "2.2.9",
+    "i18next": "22.0.6",
+    "react": "18.0.0",
+    "react-dom": "18.2.0",
+    "react-i18next": "12.0.0",
+    "react-router-dom": "6.4.3",
+    "react-scripts": "4.0.3",
+    "recoil": "0.7.6",
+    "recoil-persistence": "0.3.0-beta.1",
+    "tailwindcss": "3.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.20",
+    "@types/react-dom": "17.0.9",
+    "rome": "10.0.1",
+    "typescript": "4.4.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
