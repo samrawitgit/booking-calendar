@@ -12,12 +12,13 @@ import {
 	getAllDays,
 } from ".";
 
+dayjs.extend(weekdayPlugin);
+dayjs.extend(objectPlugin);
+dayjs.extend(isTodayPlugin);
+
 const CustomCalendar = (props) => {
 	const { view = DateViews.Month } = props;
 	const now = dayjs();
-	dayjs.extend(weekdayPlugin);
-	dayjs.extend(objectPlugin);
-	dayjs.extend(isTodayPlugin);
 
 	const [currentMonth, setCurrentMonth] = useState(now);
 	const [arrayOfDays, setArrayOfDays] = useState([]);

@@ -23,8 +23,9 @@
   font-feature-settings: 'liga';
 }
 
-* {
+html {
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 .App {
@@ -209,6 +210,24 @@ main {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
+}
+
+/* FullCalendar */
+.fc .fc-col-header colgroup col,
+.fc .fc-timegrid-slot.slotLabel .fc-timegrid-slot {
+  width: 3em !important
+}
+
+.fc .fc-timegrid-slot {
+  height: 4em
+}
+
+.fc .slotLanes {
+  /* background: repeating-linear-gradient(80deg, green 4px, green 4px, white 6px, white 15px) !important; */
+}
+
+.fc .fc-day.fc-day-today {
+  background-color: white !important
 }
 
 /* React calendar */

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import {useRecoilValue} from 'recoil'
-import { classesState } from "src/recoil/classes";
+import { useRecoilState } from "recoil";
+import { classesCategoryState } from "src/recoil/classes";
 
 const Availability = () => {
-  const classes = useRecoilValue(classesState)
+	const [classes, setClasses] = useRecoilState(classesCategoryState); // TODO: finish
 	const [selected, setSelected] = useState(classes[0].id);
 
 	return (

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CustomCalendar from "src/calendar/CustomCalendar";
 import WeekCalendar from "src/calendar/WeekCalendar";
 import Availability from "src/components/Availability";
@@ -13,7 +14,10 @@ const BookClass = () => {
 			<div className="flex flex-col w-full">
 				<CustomCalendar />
 				<div className="divider">Hourly week</div>
-				<WeekCalendar />
+				<Link className="btn m5 btn-ghost normal-case text-xl" to="/week">
+					View current week
+				</Link>
+				{/* <WeekCalendar /> */}
 			</div>
 
 			{/* <CalendarSection />

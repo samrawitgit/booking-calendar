@@ -1,3 +1,4 @@
+import { DateViews } from "../utils/Utils";
 import { CalendarHours } from "./CalendarHours";
 
 export const CalendarCells = (props) => {
@@ -35,7 +36,7 @@ export const CalendarCells = (props) => {
 	return (
 		<>
 			<div className="flex">
-				<CalendarHours clssName="flex-none" />
+				{view === DateViews.Week && <CalendarHours clssName="flex-none" />}
 				<div className="calendar-body flex-initial w-full">{rows}</div>
 			</div>
 		</>
