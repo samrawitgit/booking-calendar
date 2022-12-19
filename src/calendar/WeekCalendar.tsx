@@ -1,11 +1,8 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
-import CustomCalendar from "./CustomCalendar";
-import { DateViews } from "./utils/Utils";
-import { Calendar, EventSourceInput } from "@fullcalendar/core";
-import { useRecoilValue } from "recoil";
-import { classesState } from "src/recoil/classes";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { categoryState, filteredClasses } from "src/recoil/classes";
 
 import dayjs from "dayjs";
 import isTodayPlugin from "dayjs/plugin/isToday";
@@ -13,22 +10,15 @@ import Availability from "src/components/Availability";
 
 dayjs.extend(isTodayPlugin);
 
-const CATEGORIES = {
-	ALL: "all",
-	ENG: "english",
-	CONVO: "conversation",
-	NIGHT: "night",
-};
-
 const WeekCalendar = (props) => {
-	const events = useRecoilValue(classesState);
-	const category = CATEGORIES.CONVO;
+	const [categories, setCategories] = useRecoilState(categoryState);
+	const events = useRecoilValue(filteredClasses);
 
 	const customHeader = (day) => {
 		const dayObj = dayjs(day.date);
 
 		return (
-			<div className="flex flex-col h-20 justify-around">
+			<div className="flex flex-col h-20 justify-around overflow-hidden">
 				<div>{dayObj.format("ddd")}</div>
 				<div
 					className={
@@ -42,9 +32,8 @@ const WeekCalendar = (props) => {
 	};
 
 	const renderEvent = (event) => {
-		const { title, startStr, endStr, extendedProps } = event.event;
+		const { title, startStr, extendedProps } = event.event;
 		const startTime = dayjs(startStr).format("HH:mm");
-		const endTime = dayjs(endStr).format("HH:mm");
 
 		return (
 			<div className="flex flex-col h-full justify-around">
@@ -81,15 +70,13 @@ const WeekCalendar = (props) => {
 				nowIndicator
 				slotLabelClassNames="slotLabel"
 				slotLaneClassNames="slotLanes"
-				events={events.filter((e) => e.category === category)}
-				eventColor="#B1B2FF"
+				events={events}
 				eventContent={(e) => renderEvent(e)}
 				eventClick={(e) => onEventClick(e)}
 			/>
-			<Availability />
+			<Availability categories={categories} setCategories={setCategories} />
 		</div>
 	);
-	// return <CustomCalendar view={DateViews.Week} />;
 };
 
 export default WeekCalendar;

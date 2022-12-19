@@ -2,6 +2,12 @@ import dayjs, { Dayjs } from "dayjs";
 
 /** Interfaces */
 
+export const CATEGORIES = {
+	ALL: "all",
+	ENG: "english",
+	CONVO: "conversation",
+	NIGHT: "night",
+};
 interface DateObject {
 	day: number;
 	month: number;

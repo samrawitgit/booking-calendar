@@ -5,6 +5,15 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
+@layer base {
+  :root {
+    --text-color: #667085;
+    --bg-color: #f9f9f9;
+    --purple: #B1B2FF;
+    --green: #56C795;
+  }
+}
+
 .icon {
   font-family: 'Material Icons', serif;
   font-style: normal;
@@ -28,19 +37,16 @@ html {
   font-size: 16px;
 }
 
-.App {
-  font-family: sans-serif;
-  text-align: center;
-}
-
 body {
-  font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: sans-serif, 'Open Sans', 'Helvetica Neue', 'Helvetica', 'Arial';
   font-size: 1em;
   font-weight: 300;
   line-height: 1.5;
   color: var(--text-color);
   background: var(--bg-color);
   position: relative;
+  text-align: center;
+  height: 100vh;
 }
 
 main {
@@ -216,6 +222,30 @@ main {
 .fc .fc-col-header colgroup col,
 .fc .fc-timegrid-slot.slotLabel .fc-timegrid-slot {
   width: 3em !important
+}
+
+.fc .fc-scrollgrid .fc-scrollgrid-section-header .fc-scroller-harness>.fc-scroller {
+  overflow: hidden !important;
+}
+
+/* CALENDAR SCROLLBAR */
+
+.fc .fc-scrollgrid .fc-scrollgrid-section-body .fc-scroller-harness>.fc-scroller.fc-scroller-liquid-absolute::-webkit-scrollbar {
+  width: 0.375rem;
+  height: 0.375rem;
+  padding-right: 0.5rem;
+  background-color: transparent;
+}
+
+.fc .fc-scrollgrid .fc-scrollgrid-section-body .fc-scroller-harness>.fc-scroller.fc-scroller-liquid-absolute::-webkit-scrollbar-track {
+  background-color: rgb(241 245 249);
+  border-radius: 0.25rem;
+}
+
+.fc .fc-scrollgrid .fc-scrollgrid-section-body .fc-scroller-harness>.fc-scroller.fc-scroller-liquid-absolute::-webkit-scrollbar-thumb {
+  background-color: rgb(102 112 133 / 0.5);
+  opacity: 0.5;
+  border-radius: 0.25rem;
 }
 
 .fc .fc-timegrid-slot {

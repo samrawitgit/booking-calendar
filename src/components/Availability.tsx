@@ -1,11 +1,26 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import { useRecoilState } from "recoil";
-import { classesCategoryState } from "src/recoil/classes";
 
-const Availability = () => {
-	const [classes, setClasses] = useRecoilState(classesCategoryState); // TODO: finish
-	const [selected, setSelected] = useState(classes[0].id);
+const Availability = ({ categories, setCategories }) => {
+	const [selected, setSelected] = useState(categories[0].id);
+
+	const onSelect = (category) => {
+		setSelected(category.id);
+		let newClasses = [...categories];
+		const oldSelectedId = categories.findIndex((group) => group.selected);
+		const newSelectedId = categories.findIndex(
+			(group) => group.id === category.id,
+		);
+		newClasses[oldSelectedId] = {
+			...newClasses[oldSelectedId],
+			selected: false,
+		};
+		newClasses[newSelectedId] = {
+			...newClasses[newSelectedId],
+			selected: true,
+		};
+		setCategories(newClasses);
+	};
 
 	return (
 		<>
@@ -14,12 +29,12 @@ const Availability = () => {
 				<div className="collapse-title text-xl font-medium">Availability</div>
 				<div className="collapse-content">
 					<Formik
-						initialValues={{ picked: selected, options: classes }}
+						initialValues={{ picked: selected, options: categories }}
 						onSubmit={() => {}}
 					>
 						<Form className="form-control">
 							<div role="group">
-								{classes.map((option, iO) => (
+								{categories.map((option, iO) => (
 									<label key={`avb-opt-${iO}`} className="label cursor-pointer">
 										<Field
 											type="radio"
@@ -27,7 +42,7 @@ const Availability = () => {
 											value="option.id"
 											className="radio checked:bg-red-500"
 											checked={selected === option.id}
-											onClick={() => setSelected(option.id)}
+											onClick={() => onSelect(option)}
 										/>
 										<span className="label-text">{option.title}</span>
 									</label>

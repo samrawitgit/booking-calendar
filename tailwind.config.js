@@ -13,7 +13,7 @@ module.exports = {
 			green: "#56C795",
 			// Custom
 			"main-color": "#1a8fff",
-			"text-color": "#777",
+			"text-color": "#667085",
 			"text-color-light": "#ccc",
 			"border-color": "#eee",
 			"bg-color": "#f9f9f9",
