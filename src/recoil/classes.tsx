@@ -1,8 +1,9 @@
 import { EventInput } from "@fullcalendar/core";
-import { atom, selector } from "recoil";
-import { CATEGORIES } from "src/calendar";
+import { atom, RecoilValueReadOnly, selector } from "recoil";
+import { CATEGORIES, Category } from "../components";
 
-export const categoryState = atom({
+
+export const categoryState = atom<Category[]>({
 	key: "Category",
 	default: [
 		{ id: "all", title: "View All", selected: true },
@@ -143,7 +144,7 @@ export const classesState = atom<EventInput[]>({
 	],
 });
 
-export const filteredClasses = selector({
+export const filteredClasses = selector<EventInput[]>({
 	key: "FilteredClasses",
 	get: ({ get }) => {
 		const filter = get(categoryState).find((cat) => cat.selected)?.id;
@@ -153,6 +154,5 @@ export const filteredClasses = selector({
 		return filter === CATEGORIES.ALL
 			? list
 			: list.filter((item) => item.category === filter);
-	},
-	set: ({ set }) => {},
+	}
 });

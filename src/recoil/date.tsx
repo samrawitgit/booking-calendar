@@ -1,12 +1,12 @@
 import { atom, selector } from "recoil";
 import dayjs from "dayjs";
 
-export const dateState = atom({
+export const dateState = atom<Date>({
 	key: "date",
 	default: new Date(),
 });
 
-export const startHourState = selector({
+export const startHourState = selector<number>({
 	key: "startHour",
 	get: ({ get }) => {
 		const dateSelected = get(dateState);
@@ -14,7 +14,7 @@ export const startHourState = selector({
 	},
 });
 
-export const endHourState = selector({
+export const endHourState = selector<number>({
 	key: "endHour",
 	get: ({ get }) => {
 		const dateSelected = get(dateState);

@@ -2,13 +2,19 @@ import dayjs, { Dayjs } from "dayjs";
 
 /** Interfaces */
 
+export interface Category {
+	id: string;
+	title: string;
+	selected: boolean;
+}
+
 export const CATEGORIES = {
 	ALL: "all",
 	ENG: "english",
 	CONVO: "conversation",
 	NIGHT: "night",
 };
-interface DateObject {
+export interface DateObject {
 	day: number;
 	month: number;
 	year: number;
@@ -16,10 +22,6 @@ interface DateObject {
 	isCurrentDay: boolean;
 }
 
-export const DateViews = {
-	Month: "month",
-	Week: "week",
-};
 
 /** Utils */
 
@@ -36,7 +38,7 @@ const formateDateObject = (date: Dayjs, currentMonth: Dayjs): DateObject => {
 	return formatedObject;
 };
 
-export const getAllDays = (currentMonth, setArrayOfDays) => {
+export const getAllDays = (currentMonth: Dayjs, setArrayOfDays): void => {
 	let currentDate = currentMonth.startOf("month").weekday(0);
 	const nextMonth = currentMonth.add(1, "month").month();
 	let allDates: { dates: DateObject[] }[] = [];

@@ -1,20 +1,21 @@
 import React from "react";
 import FullCalendar from "@fullcalendar/react"; // must go before plugins
 import timeGridPlugin from "@fullcalendar/timegrid"; // a plugin!
-import { useRecoilValue, useRecoilState } from "recoil";
-import { categoryState, filteredClasses } from "src/recoil/classes";
+import { useRecoilValue, } from "recoil";
+import { filteredClasses } from "../recoil/classes";
 
 import dayjs from "dayjs";
 import isTodayPlugin from "dayjs/plugin/isToday";
-import Availability from "src/components/Availability";
+import { DayHeaderContentArg, EventClickArg, EventContentArg } from "@fullcalendar/core";
+import { dateState } from "../recoil/date";
 
 dayjs.extend(isTodayPlugin);
 
 const WeekCalendar = (props) => {
-	const [categories, setCategories] = useRecoilState(categoryState);
 	const events = useRecoilValue(filteredClasses);
+	const selectedDate = useRecoilValue(dateState)
 
-	const customHeader = (day) => {
+	const customHeader = (day: DayHeaderContentArg) => {
 		const dayObj = dayjs(day.date);
 
 		return (
@@ -31,7 +32,7 @@ const WeekCalendar = (props) => {
 		);
 	};
 
-	const renderEvent = (event) => {
+	const renderEvent = (event: EventContentArg) => {
 		const { title, startStr, extendedProps } = event.event;
 		const startTime = dayjs(startStr).format("HH:mm");
 
@@ -45,14 +46,15 @@ const WeekCalendar = (props) => {
 		);
 	};
 
-	const onEventClick = (event) => {
-		console.log({ event });
+	const onEventClick = (event: EventClickArg) => {
+		console.log(`You booked "${event.event.title}"!`);
 	};
 
 	return (
-		<div className="w-full">
+		<div className="min-w-[60%]">
 			<FullCalendar
-				visibleRange={{
+				initialDate={selectedDate}
+				visibleRange={{	// TODO:implement dynamic view when changing date
 					start: "2022-12-20",
 					end: "2022-12-26",
 				}}
@@ -73,8 +75,8 @@ const WeekCalendar = (props) => {
 				events={events}
 				eventContent={(e) => renderEvent(e)}
 				eventClick={(e) => onEventClick(e)}
+				height="850px"
 			/>
-			<Availability categories={categories} setCategories={setCategories} />
 		</div>
 	);
 };

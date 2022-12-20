@@ -1,7 +1,11 @@
-import { DateViews } from "../utils/Utils";
+import { Dayjs } from "dayjs";
 
-export const CalendarDays = (props) => {
-	const { view, now } = props;
+interface DaysProps {
+	now: Dayjs
+}
+
+export const CalendarDays = (props: DaysProps) => {
+	const { now } = props;
 	const dateFormat = "ddd";
 	const days: any = [];
 
@@ -12,10 +16,10 @@ export const CalendarDays = (props) => {
 				className="col grow basis-0 max-w-full justify-center text-center"
 				key={i}
 			>
-				{view === DateViews.Week ? weekString : weekString[0]}
+				{weekString[0]}
 			</div>,
 		);
 	}
 
-	return <div className="days row">{days}</div>;
+	return <div className="days row w-full">{days}</div>;
 };

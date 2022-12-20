@@ -1,12 +1,15 @@
-import { DateViews } from "../";
+import { Dayjs } from "dayjs";
+import React from "react";
 
-export const CalendarHeader = (props) => {
-	const { view, currentMonth, prevMonth, nextMonth } = props;
+interface HeaderProps {
+	currentMonth: Dayjs,
+	prevMonth: () => void,
+	nextMonth: () => void
+}
+
+export const CalendarHeader = (props: HeaderProps) => {
+	const { currentMonth, prevMonth, nextMonth } = props;
 	const dateFormat = "MMMM YYYY";
-
-	if (view === DateViews.Week) {
-		return <></>;
-	}
 
 	return (
 		<div className="header p-6 border-b-2 border-border-color flex w-full items-center">

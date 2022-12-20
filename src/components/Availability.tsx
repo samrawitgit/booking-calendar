@@ -1,8 +1,23 @@
-import React, { useState } from "react";
-import { Formik, Form, Field } from "formik";
+import React, { useEffect, useState } from "react";
+import { Formik, Form } from "formik";
+import { SetterOrUpdater } from "recoil";
+import { Reorder } from "framer-motion";
+import { Item, Category } from "./index";
 
-const Availability = ({ categories, setCategories }) => {
-	const [selected, setSelected] = useState(categories[0].id);
+interface AvailabilityProps {
+	categories: Category[], setCategories: SetterOrUpdater<Category[]>
+}
+
+const Availability = ({ categories, setCategories }: AvailabilityProps) => {
+	const [isDragging, setIsDragging] = useState<boolean>(false)
+	const [selected, setSelected] = useState<string>("");
+
+	useEffect(() => {
+		const selected = categories.find(cat => cat.selected)
+		if (selected) {
+			setSelected(selected.id)
+		}
+	}, [])
 
 	const onSelect = (category) => {
 		setSelected(category.id);
@@ -24,29 +39,28 @@ const Availability = ({ categories, setCategories }) => {
 
 	return (
 		<>
-			<div tabIndex={0} className="collapse collapse-arrow">
+			<div tabIndex={0} className="availability collapse collapse-arrow h-full mt-[4em]">
 				<input type="checkbox" />
 				<div className="collapse-title text-xl font-medium">Availability</div>
 				<div className="collapse-content">
 					<Formik
 						initialValues={{ picked: selected, options: categories }}
-						onSubmit={() => {}}
+						onSubmit={() => { }}
 					>
 						<Form className="form-control">
 							<div role="group">
-								{categories.map((option, iO) => (
-									<label key={`avb-opt-${iO}`} className="label cursor-pointer">
-										<Field
-											type="radio"
-											name="picked"
-											value="option.id"
-											className="radio checked:bg-red-500"
-											checked={selected === option.id}
-											onClick={() => onSelect(option)}
-										/>
-										<span className="label-text">{option.title}</span>
-									</label>
-								))}
+								<Reorder.Group
+									axis="y"
+									values={categories}
+									onReorder={(newOrder) => { setCategories(newOrder) }}
+									onDragStart={() => setIsDragging(true)}
+									onDragEnd={() => setIsDragging(false)}
+								>
+									{categories.map((option, iO) => (
+										<Item key={iO} option={option} onSelect={onSelect} isDragging={isDragging}
+											setIsDragging={setIsDragging} drag={false} /> /* Pass drag={true} to see drag motion (not fully functional) */
+									))}
+								</Reorder.Group>
 							</div>
 						</Form>
 					</Formik>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CustomCalendar from "src/calendar/CustomCalendar";
+import CustomCalendar from "../components/CustomCalendar";
 
 const Homepage = () => {
 	return (

@@ -8,20 +8,19 @@ import {
 	CalendarCells,
 	CalendarDays,
 	CalendarHeader,
-	DateViews,
+	DateObject,
 	getAllDays,
-} from ".";
+} from "./";
 
 dayjs.extend(weekdayPlugin);
 dayjs.extend(objectPlugin);
 dayjs.extend(isTodayPlugin);
 
-const CustomCalendar = (props) => {
-	const { view = DateViews.Month } = props;
+const CustomCalendar = () => {
 	const now = dayjs();
 
 	const [currentMonth, setCurrentMonth] = useState(now);
-	const [arrayOfDays, setArrayOfDays] = useState([]);
+	const [arrayOfDays, setArrayOfDays] = useState<{ dates: DateObject[] }[]>([]);
 
 	const nextMonth = () => {
 		const plus = currentMonth.add(1, "month");
@@ -40,13 +39,12 @@ const CustomCalendar = (props) => {
 		<>
 			<div className="calendar relative w-full flex-col bg-neutral-color border border-border-color">
 				<CalendarHeader
-					view={view}
 					currentMonth={currentMonth}
 					prevMonth={prevMonth}
 					nextMonth={nextMonth}
 				/>
-				<CalendarDays view={view} now={now} />
-				<CalendarCells view={view} totalDays={arrayOfDays} />
+				<CalendarDays now={now} />
+				<CalendarCells totalDays={arrayOfDays} />
 			</div>
 		</>
 	);
